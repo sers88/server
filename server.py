@@ -2,6 +2,7 @@ import socket
 import os
 import time
 
+
 class Server():
 
     def __init__(self, host, port, timeout=None):
@@ -15,10 +16,12 @@ class Server():
         print("At start server BY")
         data, client = server.recvfrom(4096)
         print('client ', client, 'data ', data)
-        server.sendto(b'ololol ', client)
-        server.close()
+        if data == 'shutdown':
+            server.sendto(b'Ok, my Master! ', client)
+            server.close()
+            os.system('shutdown')
 
-'''adress = "localhost"
+adress = '0.0.0.0'
 port = 11111
 ksantd_serv = Server(adress, port)
-ksantd_serv.lisning()'''
+ksantd_serv.lisning()
